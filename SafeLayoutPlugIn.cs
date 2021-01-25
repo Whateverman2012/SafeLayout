@@ -68,8 +68,11 @@ namespace SafeLayout
 		}
 
 		private void Layer_Set_Visibility(Rhino.DocObjects.Layer a_layer, bool a_state) {
-			if (a_layer.ParentLayerId != Guid.Empty)
-				Layer_Set_Visibility(Rhino.RhinoDoc.ActiveDoc.Layers.FindId(a_layer.ParentLayerId), a_state);
+			if (a_state)
+			{
+				if (a_layer.ParentLayerId != Guid.Empty)
+					Layer_Set_Visibility(Rhino.RhinoDoc.ActiveDoc.Layers.FindId(a_layer.ParentLayerId), a_state);
+			}
 			a_layer.IsVisible = a_state;
 		}
 
