@@ -60,11 +60,17 @@ namespace SafeLayout
 					//Rhino.RhinoApp.WriteLine("from model");
 					Rhino.RhinoDoc.ActiveDoc.NamedLayerStates.Save(layer_states_name);
 					foreach (Rhino.DocObjects.Layer layer in Rhino.RhinoDoc.ActiveDoc.Layers)
-						layer.IsVisible = true;
+						Layer_Set_Visibility(layer, true);
 				}
 
 				last_view_type = e.View.MainViewport.ViewportType;
 			}
+		}
+
+		private void Layer_Set_Visibility(Rhino.DocObjects.Layer a_layer, bool a_state) {
+			if (a_layer.ParentLayerId != Guid.Empty)
+				Layer_Set_Visibility(Rhino.RhinoDoc.ActiveDoc.Layers.FindId(a_layer.ParentLayerId), a_state);
+			a_layer.IsVisible = a_state;
 		}
 
 		///<summary>Gets the only instance of the SafeLayoutPlugIn plug-in.</summary>

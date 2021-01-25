@@ -74,6 +74,7 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).rhp"
+Copy "$(TargetPath)" "D:\Bibi\Rhino\plugins\$(ProjectName).rhp"
 Erase "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
