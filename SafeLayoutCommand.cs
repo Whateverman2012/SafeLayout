@@ -26,29 +26,42 @@ namespace SafeLayout
 		///<returns>The command name as it appears on the Rhino command line.</returns>
 		public override string EnglishName
 		{
-			get { return "SafeLayoutSettings"; }
+			get { return "SafeLayout"; }
 		}
 
 		protected override Result RunCommand(RhinoDoc doc, RunMode mode)
 		{
 			// Get persistent settings (from Registry)
 			PersistentSettings settings = this.PlugIn.Settings;
-			bool new_layer_layout_visible = settings.GetBool("new_layer_layout_visible", false);
+			bool save_settings = false;
+			bool enabled = settings.GetBool("enabled", true);
+			bool new_layer_visible_in_layout = settings.GetBool("new_layer_layout_visible", false);
 
 			GetOption go = new GetOption();
-			OptionToggle option_toggle_newLayerLayoutVisible = new OptionToggle(new_layer_layout_visible, "off", "on");
-			go.AddOptionToggle("new_layer_layout_visible", ref option_toggle_newLayerLayoutVisible);
+			OptionToggle option_toggle_enabled = new OptionToggle(enabled, "off", "on");
+			OptionToggle option_toggle_newLayerLayoutVisible = new OptionToggle(new_layer_visible_in_layout, "off", "on");
+			go.AddOptionToggle("enabled", ref option_toggle_enabled);
+			go.AddOptionToggle("new_layer_visible_in_layout", ref option_toggle_newLayerLayoutVisible);
 			go.SetCommandPrompt("Safe Layout Settings");
 
 			Rhino.Input.GetResult get_rc = go.Get();
 			Result rc = go.CommandResult();
 
-			if(new_layer_layout_visible != option_toggle_newLayerLayoutVisible.CurrentValue)
+			if (enabled != option_toggle_enabled.CurrentValue)
 			{
-				new_layer_layout_visible = option_toggle_newLayerLayoutVisible.CurrentValue;
-				settings.SetBool("new_layer_layout_visible", new_layer_layout_visible);
-				this.PlugIn.SaveSettings();
+				enabled = option_toggle_enabled.CurrentValue;
+				settings.SetBool("enabled", enabled);
+				save_settings = true;
 			}
+			if (new_layer_visible_in_layout != option_toggle_newLayerLayoutVisible.CurrentValue)
+			{
+				new_layer_visible_in_layout = option_toggle_newLayerLayoutVisible.CurrentValue;
+				settings.SetBool("new_layer_visible_in_layout", new_layer_visible_in_layout);
+				save_settings = true;
+			}
+
+			if (save_settings) this.PlugIn.SaveSettings();
+
 			return rc;
 		}
 	}
