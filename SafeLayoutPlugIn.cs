@@ -13,6 +13,12 @@ namespace SafeLayout
 		public SafeLayoutPlugIn()
 		{
 			Instance = this;
+
+			if (!this.Settings.Keys.Contains("enabled"))
+				this.Settings.SetBool("enabled", true);
+			if (!this.Settings.Keys.Contains("new_layer_layout_visible"))
+				this.Settings.SetBool("new_layer_visible_in_layout", false);
+
 			Rhino.Display.RhinoView.SetActive += RhinoView_SetActive;
 			Rhino.RhinoDoc.LayerTableEvent += RhinoDoc_LayerTableEvent;
 		}

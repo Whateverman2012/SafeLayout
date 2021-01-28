@@ -35,7 +35,7 @@ namespace SafeLayout
 			PersistentSettings settings = this.PlugIn.Settings;
 			bool save_settings = false;
 			bool enabled = settings.GetBool("enabled", true);
-			bool new_layer_visible_in_layout = settings.GetBool("new_layer_layout_visible", false);
+			bool new_layer_visible_in_layout = settings.GetBool("new_layer_visible_in_layout", false);
 
 			GetOption go = new GetOption();
 			OptionToggle option_toggle_enabled = new OptionToggle(enabled, "off", "on");
