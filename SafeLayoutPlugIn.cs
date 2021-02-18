@@ -21,7 +21,8 @@ namespace SafeLayout
 
 			Rhino.Display.RhinoView.SetActive += RhinoView_SetActive;
 			Rhino.RhinoDoc.LayerTableEvent += RhinoDoc_LayerTableEvent;
-		}
+			last_view_type = Rhino.RhinoDoc.ActiveDoc.Views.ActiveView.ActiveViewport.ViewportType;
+	}
 
 		private void RhinoDoc_LayerTableEvent(object sender, Rhino.DocObjects.Tables.LayerTableEventArgs e)
 		{
@@ -44,7 +45,6 @@ namespace SafeLayout
 				//layer.SetPerViewportVisible(pageView.MainViewport.Id, false);
 				foreach (Rhino.DocObjects.DetailViewObject detail in pageView.GetDetailViews())
 					layer.SetPerViewportVisible(detail.Id, false);
-				pageView.Redraw();
 			}
 		}
 
