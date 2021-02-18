@@ -44,6 +44,7 @@ namespace SafeLayout
 				//layer.SetPerViewportVisible(pageView.MainViewport.Id, false);
 				foreach (Rhino.DocObjects.DetailViewObject detail in pageView.GetDetailViews())
 					layer.SetPerViewportVisible(detail.Id, false);
+				pageView.Redraw();
 			}
 		}
 
@@ -66,6 +67,7 @@ namespace SafeLayout
 					foreach (Rhino.DocObjects.Layer layer in Rhino.RhinoDoc.ActiveDoc.Layers)
 						Rhino.RhinoDoc.ActiveDoc.Layers.ForceLayerVisible(layer.Id);
 				}
+				e.View.Redraw();
 				last_view_type = e.View.MainViewport.ViewportType;
 			}
 		}
