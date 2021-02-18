@@ -21,7 +21,6 @@ namespace SafeLayout
 
 			Rhino.Display.RhinoView.SetActive += RhinoView_SetActive;
 			Rhino.RhinoDoc.LayerTableEvent += RhinoDoc_LayerTableEvent;
-			last_view_type = Rhino.RhinoDoc.ActiveDoc.Views.ActiveView.ActiveViewport.ViewportType;
 	}
 
 		private void RhinoDoc_LayerTableEvent(object sender, Rhino.DocObjects.Tables.LayerTableEventArgs e)
@@ -53,7 +52,7 @@ namespace SafeLayout
 			// enabled ?
 			if (!this.Settings.GetBool("enabled")) return;
 
-			if (last_view_type != e.View.MainViewport.ViewportType)
+			if (last_view_type != e.View.MainViewport.ViewportType || last_view_type == (Rhino.Display.ViewportType)(-1))
 			{
 				if (e.View.MainViewport.ViewportType == Rhino.Display.ViewportType.StandardModelingViewport)
 				{
@@ -79,7 +78,7 @@ namespace SafeLayout
 		}
 
 		public override Rhino.PlugIns.PlugInLoadTime LoadTime { get => Rhino.PlugIns.PlugInLoadTime.AtStartup; }
-		private Rhino.Display.ViewportType last_view_type = Rhino.Display.ViewportType.StandardModelingViewport;
+		private Rhino.Display.ViewportType last_view_type = (Rhino.Display.ViewportType)(-1);
 		private const String layer_states_name = "SafeLayout:ModelSpace";
 	}
 }
