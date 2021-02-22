@@ -25,13 +25,14 @@ namespace SafeLayout
 
 		private void RhinoDoc_LayerTableEvent(object sender, Rhino.DocObjects.Tables.LayerTableEventArgs e)
 		{
+
 			// enabled ?
 			if (!this.Settings.GetBool("enabled")) return;
 
 			// Not add event
 			if (e.EventType != Rhino.DocObjects.Tables.LayerTableEventType.Added) return;
+
 			//  In detail view
-			//Rhino.RhinoDoc.ActiveDoc.Views.ActiveView.ActiveViewport.ViewportType;
 			if (Rhino.RhinoDoc.ActiveDoc.Views.ActiveView.ActiveViewport.ViewportType == Rhino.Display.ViewportType.DetailViewport) return;
 
 			// Holding shift inverse SafeLayout new layer behavior.
@@ -45,6 +46,9 @@ namespace SafeLayout
 				foreach (Rhino.DocObjects.DetailViewObject detail in pageView.GetDetailViews())
 					layer.SetPerViewportVisible(detail.Id, false);
 			}
+
+			Rhino.RhinoDoc.ActiveDoc.Views.Redraw();
+			//RhinoApp.WriteLine("SL : RhinoDoc_LayerTableEvent");	
 		}
 
 		private void RhinoView_SetActive(object sender, Rhino.Display.ViewEventArgs e)
@@ -64,11 +68,14 @@ namespace SafeLayout
 					//Rhino.RhinoApp.WriteLine("from model");
 					Rhino.RhinoDoc.ActiveDoc.NamedLayerStates.Save(layer_states_name);
 					foreach (Rhino.DocObjects.Layer layer in Rhino.RhinoDoc.ActiveDoc.Layers)
+					{
 						Rhino.RhinoDoc.ActiveDoc.Layers.ForceLayerVisible(layer.Id);
+					}
 				}
-				e.View.Redraw();
+				Rhino.RhinoDoc.ActiveDoc.Views.Redraw();
 				last_view_type = e.View.MainViewport.ViewportType;
 			}
+			//RhinoApp.WriteLine("SL : RhinoView_SetActive");
 		}
 
 		///<summary>Gets the only instance of the SafeLayoutPlugIn plug-in.</summary>
