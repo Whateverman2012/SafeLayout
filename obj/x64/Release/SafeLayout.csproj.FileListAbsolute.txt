@@ -1,0 +1,4 @@
+R:\Dev\github\SafeLayout\bin\x64\Release\SafeLayout.dll
+R:\Dev\github\SafeLayout\obj\x64\Release\SafeLayout.csprojAssemblyReference.cache
+R:\Dev\github\SafeLayout\obj\x64\Release\SafeLayout.csproj.CoreCompileInputs.cache
+R:\Dev\github\SafeLayout\obj\x64\Release\SafeLayout.dll
