@@ -69,36 +69,13 @@ namespace SafeLayout
 				{
 					//Rhino.RhinoApp.WriteLine("from model");
 					Rhino.RhinoDoc.ActiveDoc.NamedLayerStates.Save(layer_states_name);
-					//Rhino.Display.RhinoView.SetActive -= RhinoView_SetActive;
-					//Rhino.RhinoDoc.LayerTableEvent -= RhinoDoc_LayerTableEvent;
 					foreach (Rhino.DocObjects.Layer layer in Rhino.RhinoDoc.ActiveDoc.Layers)
-					{
 						if (!layer.IsDeleted)
-						{
-							//Rhino.UI.Dialogs.ShowMessage("|"+layer.Name+"|", "");
-							Rhino.RhinoDoc.ActiveDoc.Layers.ForceLayerVisible(layer.Id); //Crashes with linked files (when referenced layer names already exist)
-						}
-						//Layer_Set_Visibility(layer, true);
-					}
-					//Rhino.Display.RhinoView.SetActive += RhinoView_SetActive;
-					//Rhino.RhinoDoc.LayerTableEvent += RhinoDoc_LayerTableEvent;
+							Rhino.RhinoDoc.ActiveDoc.Layers.ForceLayerVisible(layer.Id);
 				}
 				Rhino.RhinoDoc.ActiveDoc.Views.Redraw();
 			}
 			//RhinoApp.WriteLine("SL : RhinoView_SetActive");
-		}
-
-		private void Layer_Set_Visibility(Rhino.DocObjects.Layer a_layer, bool a_state)
-		{
-			if (a_layer.ParentLayerId != Guid.Empty)
-				Layer_Set_Visibility(Rhino.RhinoDoc.ActiveDoc.Layers.FindId(a_layer.ParentLayerId), a_state);
-			if (a_state)
-			{
-				if (a_layer.ParentLayerId != Guid.Empty)
-					Layer_Set_Visibility(Rhino.RhinoDoc.ActiveDoc.Layers.FindId(a_layer.ParentLayerId), a_state);
-			}
-			if(a_layer.IsVisible != a_state)
-				a_layer.IsVisible = a_state;
 		}
 
 		///<summary>Gets the only instance of the SafeLayoutPlugIn plug-in.</summary>

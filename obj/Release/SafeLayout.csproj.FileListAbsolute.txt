@@ -1,0 +1,5 @@
+R:\Dev\github\SafeLayout\bin\SafeLayout.dll
+R:\Dev\github\SafeLayout\bin\SafeLayout.pdb
+R:\Dev\github\SafeLayout\obj\Release\SafeLayout.csproj.CoreCompileInputs.cache
+R:\Dev\github\SafeLayout\obj\Release\SafeLayout.dll
+R:\Dev\github\SafeLayout\obj\Release\SafeLayout.pdb
