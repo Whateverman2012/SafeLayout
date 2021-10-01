@@ -1,4 +1,3 @@
 R:\Dev\github\SafeLayout\bin\SafeLayout.dll
 R:\Dev\github\SafeLayout\obj\Release\SafeLayout.csproj.CoreCompileInputs.cache
 R:\Dev\github\SafeLayout\obj\Release\SafeLayout.dll
-R:\Dev\GitHub\SafeLayout\obj\Release\SafeLayout.csproj.AssemblyReference.cache
