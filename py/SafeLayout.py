@@ -82,17 +82,18 @@ def ChangeLayerStates(sender, e):
 		# Restore model space layer states
 		if Rhino.RhinoDoc.ActiveDoc.NamedLayerStates.FindName(sc.sticky["ModelLayerStatesName"]) != -1:
 			Rhino.RhinoDoc.ActiveDoc.NamedLayerStates.Restore(sc.sticky["ModelLayerStatesName"], Rhino.DocObjects.Tables.RestoreLayerProperties.Visible)
-		e.View.Redraw()
 	# Switching from model space
 	else:
 		# Save model space layer states
 		Rhino.RhinoDoc.ActiveDoc.NamedLayerStates.Save(sc.sticky["ModelLayerStatesName"])
 		# Turn on all model space layers
 		for layer in sc.doc.Layers:
-			layer.IsVisible = True
-			layer.CommitChanges()
-		e.View.Redraw()
-		
+			if not layer.IsDeleted:
+				layer.IsVisible = True
+				layer.CommitChanges()
+
+	sc.doc.Views.Redraw();
+				
 	# Remember last space
 	sc.sticky["LastViewType"] = e.View.MainViewport.ViewportType
 

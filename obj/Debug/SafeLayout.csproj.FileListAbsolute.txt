@@ -3,3 +3,4 @@ R:\Dev\github\SafeLayout\bin\SafeLayout.dll
 R:\Dev\github\SafeLayout\bin\SafeLayout.pdb
 R:\Dev\github\SafeLayout\obj\Debug\SafeLayout.dll
 R:\Dev\github\SafeLayout\obj\Debug\SafeLayout.pdb
+R:\Dev\GitHub\SafeLayout\obj\Debug\SafeLayout.csprojResolveAssemblyReference.cache
