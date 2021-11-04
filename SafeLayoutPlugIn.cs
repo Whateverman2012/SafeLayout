@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using Rhino;
-using Rhino.Commands;
-using Rhino.Geometry;
-using Rhino.Input;
-using Rhino.Input.Custom;
+using System.Diagnostics;
 
 namespace SafeLayout
 {
@@ -21,7 +16,7 @@ namespace SafeLayout
 
 			Rhino.Display.RhinoView.SetActive += RhinoView_SetActive;
 			Rhino.RhinoDoc.LayerTableEvent += RhinoDoc_LayerTableEvent;
-	}
+		}
 
 		private void RhinoDoc_LayerTableEvent(object sender, Rhino.DocObjects.Tables.LayerTableEventArgs e)
 		{
@@ -68,7 +63,10 @@ namespace SafeLayout
 				else
 				{
 					//Rhino.RhinoApp.WriteLine("from model");
-					Rhino.RhinoDoc.ActiveDoc.NamedLayerStates.Save(layer_states_name);
+					if (!Rhino.RhinoDoc.ActiveDoc.IsOpening)
+					{
+						Rhino.RhinoDoc.ActiveDoc.NamedLayerStates.Save(layer_states_name);
+					}
 					foreach (Rhino.DocObjects.Layer layer in Rhino.RhinoDoc.ActiveDoc.Layers)
 						if (!layer.IsDeleted)
 							Rhino.RhinoDoc.ActiveDoc.Layers.ForceLayerVisible(layer.Id);
